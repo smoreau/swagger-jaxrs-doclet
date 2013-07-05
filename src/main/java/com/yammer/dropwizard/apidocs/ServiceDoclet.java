@@ -270,8 +270,13 @@ public class ServiceDoclet {
                     MethodDoc[] mdArr = cd.methods();
                     if(mdArr!=null && mdArr.length>0){
                         for(MethodDoc md:mdArr){
+                            String name = null;
                             if(md.name().startsWith("get") && md.name().length()>3){
-                                String name = md.name().substring(3);
+                                name = md.name().substring(3);
+                            } else if(md.name().startsWith("is") && md.name().length()>2){
+                                name = md.name().substring(2);
+                            }
+                            if (name != null) {
                                 name = name.substring(0,1).toLowerCase() + (name.length()>1?name.substring(1):"");
                                 if(eleMap.get(name)==null){
                                     eleMap.put(name, md.returnType());
